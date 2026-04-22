@@ -1,0 +1,32 @@
+
+
+let digit_list num  =
+  let rec d_list (acc: int list) (num: int) : int list =
+    if num < 10 then num :: acc
+    else d_list ((num mod 10) :: acc) (num / 10) in
+      d_list [] num
+;;
+
+let rec my_pow (x: int) (y: int) : int =
+  if y = 0 then 1
+  else x * my_pow x (y - 1)
+;;
+
+
+let power_digits (lst: int list) : int =
+  let rec p_digits (lst: int list) (exp: int) : int = 
+  match lst with
+    | [] -> 0
+    | hd :: tl -> (my_pow hd exp) + p_digits tl exp in
+      p_digits lst (List.length lst)
+;;
+
+let calculate_armstrong (num: int) : int =
+  num
+  |> digit_list 
+  |> power_digits
+;;
+
+let validate (num: int) : bool =
+  calculate_armstrong num = num
+;;
